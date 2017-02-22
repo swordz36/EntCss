@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using Bookstore.Web.Models;
+using BabyStore.Web.Models;
 
-namespace Bookstore.Web
+namespace BabyStore.Web
 {
     public partial class Startup
     {

@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Bookstore.Web.Models;
+using BabyStore.Web.Models;
 
-namespace Bookstore.Web.Controllers
+namespace BabyStore.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller
