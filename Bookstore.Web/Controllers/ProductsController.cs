@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BabyStore.Web.Models;
 using Bookstore.Web.DAL;
+using Bookstore.Web.Models;
+using Bookstore.Web.ViewModels;
+using Product = BabyStore.Web.Models.Product;
 
 namespace Bookstore.Web.Controllers
 {
@@ -17,10 +19,38 @@ namespace Bookstore.Web.Controllers
         private StoreContext db = new StoreContext();
 
         // GET: Products
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string category, string search)
         {
+            var viewModel = new ProductIndexViewModel();
+
             var products = db.Products.Include(p => p.Category);
-            return View(await products.ToListAsync());
+           
+            if (!string.IsNullOrEmpty(search))
+            {
+                products = products.Where(x => x.Name.Contains(search) 
+                || x.Description.Contains(search) 
+                || x.Category.Name.Contains(search));
+                viewModel.Search = search;
+            }
+
+            //group search results into categories and count how many items in each category
+            viewModel.CatWithCount =
+                products.Where(matchingProducts => matchingProducts.CategoryId != null)
+                    .GroupBy(matchingProducts => matchingProducts.Category.Name)
+                    .Select(catGroup => new CategoryWithCount()
+                    {
+                        CategoryName = catGroup.Key,
+                        ProductCount = catGroup.Count()
+                    });
+
+            if (!String.IsNullOrEmpty(category))
+            {
+                products = products.Where(p => p.Category.Name == category);
+            }
+
+            viewModel.Products = products.AsQueryable();
+
+            return View(viewModel);
         }
 
         // GET: Products/Details/5

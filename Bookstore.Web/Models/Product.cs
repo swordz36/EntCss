@@ -1,8 +1,11 @@
-﻿namespace BabyStore.Web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BabyStore.Web.Models
 {
-    public class Product
+    public partial class Product
     {
         public int Id { get; set; }
+        [Display(Name = "Product Name")]
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal? Price { get; set; }

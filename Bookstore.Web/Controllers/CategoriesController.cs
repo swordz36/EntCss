@@ -19,7 +19,7 @@ namespace Bookstore.Web.Controllers
         // GET: Categories
         public async Task<ActionResult> Index()
         {
-            return View(await db.Categories.ToListAsync());
+            return View(await db.Categories.OrderBy(x=>x.Name).ToListAsync());
         }
 
         // GET: Categories/Details/5
@@ -112,6 +112,12 @@ namespace Bookstore.Web.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Category category = await db.Categories.FindAsync(id);
+
+            foreach (var categoryProduct in category.Products)
+            {
+                categoryProduct.CategoryId = null;
+            }
+
             db.Categories.Remove(category);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
