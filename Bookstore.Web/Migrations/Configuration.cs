@@ -62,7 +62,7 @@ namespace Bookstore.Web.Migrations
                 new Product
                 {
                     Name = "3 Pack of Bottles",
-                    Description = "For a leak free drink everytime",
+                    Description = "For a leak free drink every time",
                     Price = 24.99M,
                     CategoryId = categories.Single(c => c.Name == "Feeding").Id
                 },
@@ -104,7 +104,7 @@ namespace Bookstore.Web.Migrations
                 new Product
                 {
                     Name = "Black Pram and Pushchair System",
-                    Description = "Convert from pram to pushchair, with raincover",
+                    Description = "Convert from pram to pushchair, with rain cover",
                     Price = 299.99M,
                     CategoryId = categories.Single(c => c.Name == "Travel").Id
                 },

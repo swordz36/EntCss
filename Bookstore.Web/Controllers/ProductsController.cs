@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Bookstore.Web.DAL;
 using Bookstore.Web.Models;
 using Bookstore.Web.ViewModels;
 using Product = BabyStore.Web.Models.Product;
+using X.PagedList;
 
 namespace Bookstore.Web.Controllers
 {
@@ -19,16 +18,16 @@ namespace Bookstore.Web.Controllers
         private StoreContext db = new StoreContext();
 
         // GET: Products
-        public async Task<ActionResult> Index(string category, string search)
+        public ActionResult Index(string category, string search, string sortBy, int? page)
         {
             var viewModel = new ProductIndexViewModel();
 
             var products = db.Products.Include(p => p.Category);
-           
+
             if (!string.IsNullOrEmpty(search))
             {
-                products = products.Where(x => x.Name.Contains(search) 
-                || x.Description.Contains(search) 
+                products = products.Where(x => x.Name.Contains(search)
+                || x.Description.Contains(search)
                 || x.Category.Name.Contains(search));
                 viewModel.Search = search;
             }
@@ -43,13 +42,38 @@ namespace Bookstore.Web.Controllers
                         ProductCount = catGroup.Count()
                     });
 
-            if (!String.IsNullOrEmpty(category))
+            if (!string.IsNullOrEmpty(category))
             {
                 products = products.Where(p => p.Category.Name == category);
+                viewModel.Category = category;
             }
 
-            viewModel.Products = products.AsQueryable();
+            //sort the results
+            switch (sortBy)
+            {
+                case "price_lowest":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                case "price_highest":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                default:
+                    products = products.OrderBy(p => p.Name);
+                    break;
+            }
 
+            const int PageItems = 3;
+            int currentPage = (page ?? 1);
+            viewModel.Products = (IPagedList)products.ToPagedList(currentPage, PageItems);
+            viewModel.SortBy = sortBy;
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+
+            viewModel.Sorts = new Dictionary<string, string>
+            {
+                {"Price low to high", "price_lowest" },
+                {"Price high to low", "price_highest" }
+            };
+                       
             return View(viewModel);
         }
 
