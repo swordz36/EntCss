@@ -5,13 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
-using Bookstore.Web.DAL;
-using Bookstore.Web.Models;
-using Bookstore.Web.ViewModels;
-using Product = BabyStore.Web.Models.Product;
 using X.PagedList;
+using BabyStore.Web.DAL;
+using BabyStore.Web.Models;
+using BabyStore.Web.ViewModels;
+using BabyStore.Web.Helpers;
 
-namespace Bookstore.Web.Controllers
+namespace BabyStore.Web.Controllers
 {
     public class ProductsController : Controller
     {
@@ -61,12 +61,10 @@ namespace Bookstore.Web.Controllers
                     products = products.OrderBy(p => p.Name);
                     break;
             }
-
-            const int PageItems = 3;
+   
             int currentPage = (page ?? 1);
-            viewModel.Products = (IPagedList)products.ToPagedList(currentPage, PageItems);
-            viewModel.SortBy = sortBy;
-            ViewBag.OnePageOfProducts = onePageOfProducts;
+            viewModel.Products = products.ToPagedList(currentPage, Constants.PageItems);
+            viewModel.SortBy = sortBy;         
 
             viewModel.Sorts = new Dictionary<string, string>
             {

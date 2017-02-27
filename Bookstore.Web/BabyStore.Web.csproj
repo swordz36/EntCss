@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bookstore.Web</RootNamespace>
-    <AssemblyName>Bookstore.Web</AssemblyName>
+    <RootNamespace>BabyStore.Web</RootNamespace>
+    <AssemblyName>Babystore.Web</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -406,11 +406,13 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductImagesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="DAL\StoreContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Migrations\201702230007210_InitialDatabase.cs" />
     <Compile Include="Migrations\201702230007210_InitialDatabase.Designer.cs">
       <DependentUpon>201702230007210_InitialDatabase.cs</DependentUpon>
@@ -423,6 +425,10 @@
     <Compile Include="Migrations\201702240245323_ProductValidation.Designer.cs">
       <DependentUpon>201702240245323_ProductValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702270516159_productImages.cs" />
+    <Compile Include="Migrations\201702270516159_productImages.Designer.cs">
+      <DependentUpon>201702270516159_productImages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -430,6 +436,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductImage.cs" />
     <Compile Include="ViewModels\ProductIndexViewModel.cs" />
     <Compile Include="Models\ProductMetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -479,7 +486,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -523,8 +532,15 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ProductImages\Create.cshtml" />
+    <Content Include="Views\ProductImages\Delete.cshtml" />
+    <Content Include="Views\ProductImages\Details.cshtml" />
+    <Content Include="Views\ProductImages\Edit.cshtml" />
+    <Content Include="Views\ProductImages\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\ProductImages\Thumbnails\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
@@ -540,6 +556,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702240245323_ProductValidation.resx">
       <DependentUpon>201702240245323_ProductValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702270516159_productImages.resx">
+      <DependentUpon>201702270516159_productImages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

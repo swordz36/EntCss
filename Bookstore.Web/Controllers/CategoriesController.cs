@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BabyStore.Web.Models;
-using Bookstore.Web.DAL;
+using BabyStore.Web.DAL;
 
-namespace Bookstore.Web.Controllers
+namespace BabyStore.Web.Controllers
 {
     public class CategoriesController : Controller
     {

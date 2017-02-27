@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using BabyStore.Web.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Bookstore.Web.Models;
 using X.PagedList;
 
-namespace Bookstore.Web.ViewModels
+namespace BabyStore.Web.ViewModels
 {
     public class ProductIndexViewModel
     {

@@ -1,4 +1,4 @@
-namespace Bookstore.Web.Migrations
+namespace BabyStore.Web.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

@@ -1,6 +1,6 @@
-﻿@model Bookstore.Web.ViewModels.ProductIndexViewModel
-@using X.PagedList.Mvc; 
-@using X.PagedList; 
+﻿@model BabyStore.Web.ViewModels.ProductIndexViewModel
+@using X.PagedList.Mvc 
+@using X.PagedList
 
 @{
     ViewBag.Title = "Products";
@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Products.PageNumber.Name)
+                @Html.DisplayNameFor(model => model.Products.First().Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Products.First().Description)

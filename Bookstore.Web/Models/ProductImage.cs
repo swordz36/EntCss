@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace BabyStore.Web.Models
 {
-    [MetadataType(typeof(ProductMetaData))]
-    public partial class Product
+    public class ProductImage
     {
-    }
-
-    public class ProductMetaData
-    {
-        [Display(Name = "Product Name")]
-        public string Name;
+        public int Id { get; set; }
+        [Display(Name="File")]
+        public string FileName { get; set; }
     }
 }

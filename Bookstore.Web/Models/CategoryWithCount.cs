@@ -1,4 +1,4 @@
-﻿namespace Bookstore.Web.Models
+﻿namespace BabyStore.Web.Models
 {
     public class CategoryWithCount
     {

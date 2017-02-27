@@ -1,6 +1,6 @@
 using BabyStore.Web.Models;
 
-namespace Bookstore.Web.Migrations
+namespace BabyStore.Web.Migrations
 {
     using System;
     using System.Collections.Generic;
@@ -8,14 +8,14 @@ namespace Bookstore.Web.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Bookstore.Web.DAL.StoreContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<BabyStore.Web.DAL.StoreContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Bookstore.Web.DAL.StoreContext context)
+        protected override void Seed(BabyStore.Web.DAL.StoreContext context)
         {
             var categories = new List<Category>
             {
