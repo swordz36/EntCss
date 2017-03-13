@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BabyStore.Web.Models
 {
@@ -24,6 +26,7 @@ namespace BabyStore.Web.Models
         public decimal? Price { get; set; }
         public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual ICollection<ProductImageMapping> ProductImageMappings { get; set; }
 
     }
 }

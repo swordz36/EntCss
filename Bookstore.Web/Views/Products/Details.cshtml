@@ -1,4 +1,5 @@
 ﻿@model BabyStore.Web.Models.Product
+@using BabyStore.Web.Helpers
 
 @{
     ViewBag.Title = "Details";
@@ -41,7 +42,25 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-
+        @if (Model.ProductImageMappings != null && Model.ProductImageMappings.Any())
+        {
+            <dt></dt>
+                <dd>
+                    <img class="img-responsive img-rounded" src="@(Url.Content(Constants.ImagePath) + Model.ProductImageMappings.OrderBy(pim =>pim.ImageNumber).ElementAt(0).ProductImage.FileName)"style=padding:5px>
+                </dd>
+                <dt></dt>
+                <dd>
+                    @foreach (var item in Model.ProductImageMappings.OrderBy(pim =>
+                        pim.ImageNumber))
+                    {
+                        <a href="@(Url.Content(Constants.ImagePath) + item.ProductImage.FileName)">
+                            <img class="img-responsive img-rounded" 
+                                 src="@(Url.Content(Constants.ThumbnailImagePath) + item.ProductImage.FileName)" 
+                                 style=padding:5px>
+                        </a>
+                    }
+                </dd>
+        }
     </dl>
 </div>
 <p>

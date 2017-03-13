@@ -1,9 +1,7 @@
 ﻿@model BabyStore.Web.ViewModels.ProductIndexViewModel
 @using X.PagedList.Mvc 
 @using X.PagedList
-
-@{
-    ViewBag.Title = "Products";
+@using BabyStore.Web.Helpers
 }
 
 <h2>@ViewBag.Title</h2>
@@ -17,7 +15,7 @@
         {
             <label>Filter by category:</label>
             @Html.DropDownListFor(x => x.Category, Model.CatFilterItems, "All")
-            <input type="hidden" name="Search" id="Search" value="@ViewBag.Search" />
+            <input type="hidden" name="Search" id="Search" value="@Model.Search" />
             <label>Sort by:</label>
             @Html.DropDownListFor(vm => vm.SortBy, new SelectList(Model.Sorts, "Value", "Key"), "Default")
             <input class="btn btn-xs btn-default" type="submit" value="Filter" />
@@ -25,6 +23,7 @@
     </p>
     <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Category)
             </th>
@@ -44,6 +43,14 @@
         {
             <tr>
                 <td>
+                    @if (item.ProductImageMappings != null && item.ProductImageMappings.Any())
+                    {
+                        <a href="@Url.Action("Details", new { id = item.Id})">
+                            <img class="img-responsive img-rounded" src="@(Url.Content(Constants.ImagePath) + item.ProductImageMappings.OrderBy(pim => pim.ImageNumber).ElementAt(0).ProductImage.FileName)">
+                        </a>
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
@@ -56,9 +63,9 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
                 </td>
             </tr>
         }

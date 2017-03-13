@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -28,9 +28,15 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Shop by Category", "Index", "Categories")</li>
                     <li>@Html.ActionLink("View all our Products", "Index", "Products")</li>
+                    <li>@Html.ActionLink("Manage Images", "Index", "ProductImages")</li>
+                    
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                    }
                 </ul>
 
-                @using (Html.BeginForm("Index", "Products", FormMethod.Get, new { @class = "navbar-form navbar-right" }))
+                @using (Html.BeginForm("Index", "Products", FormMethod.Get, new { @class = "navbar-form" }))
                 {
                     <div class="form-group">
                         @Html.TextBox("Search", null, new { @class = "form-control input-sm", @placeholder = "Search Products" })

@@ -8,8 +8,9 @@ namespace BabyStore.Web.Helpers
 {
     public static class Constants
     {
-        public const string ImagePath = "~/Content/ProductImages";
-        public const string ThumbnailImagePath = "~/Content/ProductImages/Thumbnails";
+        public const string ImagePath = "~/Content/ProductImages/";
+        public const string ThumbnailImagePath = "~/Content/ProductImages/Thumbnails/";
         public const int PageItems = 5;
+        public const int NumberOfProductImages = 5;
     }
 }

@@ -43,6 +43,7 @@ namespace BabyStore.Web
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -104,6 +105,71 @@ namespace BabyStore.Web
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+    }
+
+    public class ApplicationRoleManager : RoleManager<IdentityRole>
+    {
+        public ApplicationRoleManager(IRoleStore<IdentityRole, string> roleStore) : base(roleStore)
+        {
+        }
+
+        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
+        {
+            return new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
+        }
+    }
+
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            InitializeIndentityForFramework(context);
+            base.Seed(context);
+        }
+
+        public static void InitializeIndentityForFramework(ApplicationDbContext dbContext)
+        {
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var roleManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+
+            const string name = "admin@mvcbabystore.com";
+            const string password = "Admin@mvcbabystore123";
+            const string roleName = "admin";
+
+            //Create RoleAdmin if one doesn't exist
+            var role = roleManager.FindByName(roleName);
+
+            if (role == null)
+            {
+                role = new IdentityRole(roleName);
+                var roleResult = roleManager.Create(role);
+            }
+
+            var user = userManager.FindByName(name);
+
+            if (user == null)
+            {
+                user = new ApplicationUser
+                {
+                    UserName = name,
+                    Email = name
+                };
+
+                var result = userManager.Create(user, password);
+
+                if (result.Succeeded)
+                {
+                    result = userManager.SetLockoutEnabled(user.Id, false);
+                }
+            }
+
+            //Add user to role if not already added
+            var roleForUser = userManager.GetRoles(user.Id);
+            if (!roleForUser.Contains(roleName))
+            {
+                var result = userManager.AddToRole(user.Id, role.Name);
+            }
         }
     }
 }
