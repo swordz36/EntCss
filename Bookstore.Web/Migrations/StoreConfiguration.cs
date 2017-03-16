@@ -1,10 +1,11 @@
 using BabyStore.Web.Models;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Linq;
 
-namespace BabyStore.Web.Migrations
+
+namespace BabyStore.Web.StoreMigrations
 {
-    using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class StoreConfiguration : DbMigrationsConfiguration<BabyStore.Web.DAL.StoreContext>
     {
