@@ -2,12 +2,10 @@
 @using X.PagedList.Mvc 
 @using X.PagedList
 @using BabyStore.Web.Helpers
-}
 
 <h2>@ViewBag.Title</h2>
 <p>
-    @(String.IsNullOrWhiteSpace(Model.Search) ? "Showing all" : "You search for " +
-        Model.Search + " found") @ViewBag.OnePageOfProducts. products
+    @(String.IsNullOrWhiteSpace(Model.Search) ? "Showing all" : "You search for " + Model.Search + " found")  @Model.Products.TotalItemCount products
     </p>
     <p>
         @Html.ActionLink("Create New", "Create")

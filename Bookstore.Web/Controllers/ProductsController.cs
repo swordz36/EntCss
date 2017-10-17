@@ -61,17 +61,17 @@ namespace BabyStore.Web.Controllers
                     products = products.OrderBy(p => p.Name);
                     break;
             }
-   
+
             int currentPage = (page ?? 1);
             viewModel.Products = products.ToPagedList(currentPage, Constants.PageItems);
-            viewModel.SortBy = sortBy;         
+            viewModel.SortBy = sortBy;
 
             viewModel.Sorts = new Dictionary<string, string>
             {
                 {"Price low to high", "price_lowest" },
                 {"Price high to low", "price_highest" }
             };
-                       
+
             return View(viewModel);
         }
 
@@ -99,14 +99,14 @@ namespace BabyStore.Web.Controllers
 
             for (int i = 0; i < Constants.NumberOfProductImages; i++)
             {
-                viewModel.ImageLists.Add(new SelectList(db.ProductImages,"Id","FileName"));                
+                viewModel.ImageLists.Add(new SelectList(db.ProductImages,"Id","FileName"));
             }
 
             return View(viewModel);
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

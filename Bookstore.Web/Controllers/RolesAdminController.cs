@@ -13,7 +13,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BabyStore.Web.Controllers
 {
-    [Authorize(Roles = "admin")]public class RolesAdminController : Controller
+    [Authorize(Roles = "admin")]
+    public class RolesAdminController : Controller
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;

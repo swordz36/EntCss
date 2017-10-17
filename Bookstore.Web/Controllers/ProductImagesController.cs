@@ -109,7 +109,6 @@ namespace BabyStore.Web.Controllers
                     try
                     {
                         db.ProductImages.Add(productToAdd);
-                        db.SaveChanges();
                     }
                     //if there is an exception check if it is caused by a duplicate file
                     catch (DbUpdateException ex)
@@ -127,6 +126,7 @@ namespace BabyStore.Web.Controllers
                         }
                     }
                 }
+
                 //add a list of duplicate files to the error message
                 if (duplicates)
                 {
@@ -141,6 +141,7 @@ namespace BabyStore.Web.Controllers
                     return View();
                 }
 
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
